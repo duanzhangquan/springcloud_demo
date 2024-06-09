@@ -8,17 +8,42 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
 
-
     <modules>
-      <module>uaa</module>
+      <!--maven公共模块 -->
+      <module>common</module>
+      <!-- maven基础业务模块-->
+      <module>base</module>
+      <!-- api网关服务 -->
       <module>gateway</module>
+      <!--商品微服务 -->
       <module>product</module>
+
+      <!-- 普通方式认证(用户名密码认证)-->
+      <module>uaa</module>
+      <!-- oauth2.0认证-->
+      <module>oauth2</module>
+      <!-- ldap认证-->
+      <module>ldap</module>
+      <module>pojo</module>
+      <!-- 存放所有的openfeign远程调用 -->
+      <module>feign-api</module>
     </modules>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--  maven 编译代码使用的jdk版本，系统自带的常量  -->
     <maven.compiler.source>1.8</maven.compiler.source>
+    <!--  maven 执行代码使用的jdk版本,系统自带的常量   -->
     <maven.compiler.target>1.8</maven.compiler.target>
+    <!--  maven 编译使用的编码,,系统自带的常量 -->
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    <!--  maven 进行项目构建使用的编码,,系统自带的常量 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--  maven 生成项目报告使用的编码,,系统自带的常量  -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+    <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
+    <spring.cloud.dependencies.version>Hoxton.SR3</spring.cloud.dependencies.version>
     <spring-boot-dependencies.version>2.2.5.RELEASE</spring-boot-dependencies.version>
     <spring-cloud-alibaba.version>2.2.4.RELEASE</spring-cloud-alibaba.version>
     <lombok.version>1.18.10</lombok.version>
@@ -26,6 +51,8 @@
     <mybatis.plus.boot.starter.version>3.1.2</mybatis.plus.boot.starter.version>
     <jsonwebtoken.version>0.9.0</jsonwebtoken.version>
     <druid.version>1.1.8</druid.version>
+    <mysql.connector.java>8.0.19</mysql.connector.java>
+    <fastjson.version>1.2.47</fastjson.version>
   </properties>
 
 
@@ -34,7 +61,7 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>Hoxton.SR3</version>
+        <version>${spring.cloud.dependencies.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -65,14 +92,14 @@
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.19</version>
+        <version>${mysql.connector.java}</version>
         <scope>runtime</scope>
       </dependency>
 
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
-        <version>1.2.47</version>
+        <version>${fastjson.version}</version>
       </dependency>
 
       <dependency>
@@ -85,6 +112,7 @@
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>${servlet.api.version}</version>
+        <scope>provided</scope>
       </dependency>
 
       <dependency>
@@ -107,8 +135,27 @@
     <!-- 此处需要统一规定各个子模板的plugin的版本号-->
     <pluginManagement>
       <plugins>
+        <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot-dependencies.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.spotify</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>${docker-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin.version}</version>
+        </plugin>
+
 
       </plugins>
+
     </pluginManagement>
   </build>
 </project>

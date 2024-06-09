@@ -1,0 +1,47 @@
+server:
+  port: 8609
+
+  servlet:
+    #web应用的上下文路径,不配置时默认为/，作用类似于Controller类上的RequestMapping注解，
+    #作用是给http接口加上统一的url前缀
+    context-path: /ldap
+
+spring:
+  application:
+    name: ldap
+
+  #ldap嵌入式服务器配置
+  ldap:
+    embedded:
+      #ldap服务器端口
+      port: 8700
+      #指定ldap需要维护的数据库文件
+      ldif: classpath:ldap-server.ldif
+      base-dn: dc=ldapTest,dc=com
+
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+
+      discovery:
+        server-addr: http://119.29.237.199:8848
+        namespace: test
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        #指定分组
+        group: DEFAULT_GROUP
+        #指定命名空间
+        namespace: test
+
+#关闭nacos实时心跳检测日志输出
+logging:
+  level:
+    com.alibaba.nacos.client.naming: WARN
+    com.alibaba.nacos.client.config.impl: WARN
+
+    #springSecurity日志显示bug级别
+    org.springframework.security: DEBUG

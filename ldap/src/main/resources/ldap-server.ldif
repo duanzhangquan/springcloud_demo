@@ -1,0 +1,69 @@
+# dn表示唯一识别名，全称distinguished Name
+dn: dc=ldapTest,dc=com
+objectClass: top
+objectClass: domain
+objectclass: extensibleObject
+# 全称Domain Component,域名的部分,将完整的域名分为几个部分
+dc: ldapTest
+
+# 唯一识别名,每个entry条目里面的唯一识别名不能重复
+dn: ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: organizationalUnit
+# 全称Organization Unit组织单位(这里特指部门名称)
+ou: people
+
+# 唯一识别名
+dn: uid=zhsan20231108,ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+# Common Name公共名称(通常指一个对象的名字.如果指人,需要使用其姓氏 + 名)
+cn: 张三
+# 全称Surname,指姓氏
+sn: zhang
+# User Id指用户id(通常指某个用户的登录名)
+uid: zhsan20231108
+userPassword: $2a$10$AIBW9gbST8CaCjpM/v9MRO16rNLIUb0I76I36.BfW/60e.31t9zYi
+
+
+dn: uid=lisi20231108,ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: 李四
+sn: li
+uid: lisi20231108
+userPassword: $2a$10$AIBW9gbST8CaCjpM/v9MRO16rNLIUb0I76I36.BfW/60e.31t9zYi
+
+dn: uid=ldap_user_1,ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: 张飞
+sn: zhang
+uid: ldap_user_1
+userPassword: $2a$10$2cFty1SMQxsM6B09BqJx6.uCHxCAf.RalCmMXFIoMDeBJ4mfr0LEC
+
+dn: uid=ldap_editor_1,ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: 张无忌
+sn: zhang
+uid: ldap_editor_1
+userPassword: $2a$10$9yOERgGeMWZsYE5wNYyFAuVj8ejRUANwAnttelojtt2YTHEzL95ti
+
+dn: uid=ldap_adm_1,ou=people,dc=ldapTest,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: 张三丰
+sn: zhang
+uid: ldap_adm_1
+userPassword: $2a$10$9SbsAO8EKShvblJ9S0c9aORE1/oVVGuyJcpKQoP.HXqTMv.ZJnYP6

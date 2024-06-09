@@ -22,6 +22,11 @@ spring:
         #指定命名空间
         namespace: test
     gateway:
+      httpclient:
+        #网关连接超时时间5秒(开发阶段配置)
+        connect-timeout: 5000
+        #网关响应超时时间(开发阶段配置)
+        response-timeout: 10s
       globalcors:
         cors-configurations:
           '[/**]':
@@ -47,12 +52,42 @@ spring:
           # 匹配用户的请求
           predicates:
             # 路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置
-            # 例如请求http://localhost:9000/product/，网关将这个地址转发到实际的http://localhost:8606/product/
-            - Path=/product/**
+            # 例如请求http://localhost:9000/api/product/xxx，网关将这个地址转发到实际的http://localhost:8606/product/xxx
+            - Path=/api/product/**
+          filters:
+            #过滤器，将/api/路径替换成空字符串，如果没有这个配置则访问/api/product/xxx是无法正确路由到实际的地址
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
         - id: uaa
           # uri: lb://uaa
           uri: http://127.0.0.1:8607/
           predicates:
-            - Path=/uaa/**
+            - Path=/api/uaa/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: myOauth2
+          # uri: lb://uaa
+          uri: http://127.0.0.1:8608/
+          predicates:
+            - Path=/api/myOauth2/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ldap
+            # uri: lb://ldap
+          uri: http://127.0.0.1:8609/
+          predicates:
+            - Path=/api/ldap/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+
+
+#关闭nacos实时心跳检测日志输出
+logging:
+  level:
+    com.alibaba.nacos.client.naming: WARN
+    com.alibaba.nacos.client.config.impl: WARN
 
 

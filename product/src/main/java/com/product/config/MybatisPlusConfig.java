@@ -4,25 +4,20 @@ import com.baomidou.mybatisplus.extension.incrementer.H2KeyGenerator;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@MapperScan(value = {"com.product.mapper*","com.base.mapper*"} )
 public class MybatisPlusConfig {
 
-
-    @Bean
+/*    @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("com.product.mapper*");
+        //scannerConfigurer.setBasePackage("com.product.mapper*","");
         return scannerConfigurer;
-    }
+    }*/
 
-    /**
-     * mybatis-plus分页插件
-     * 文档：http://mp.baomidou.com
-     */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();

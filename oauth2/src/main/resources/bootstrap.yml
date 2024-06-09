@@ -1,0 +1,57 @@
+server:
+  port: 8608
+
+  servlet:
+    #web应用的上下文路径,不配置时默认为/，作用类似于Controller类上的RequestMapping注解，
+    #作用是给http接口加上统一的url前缀,比如可以将http://localhost:8080/product/list接口配置为http://localhost:8080/myOauth2/product/list
+    context-path: /myOauth2
+    session:
+      #禁用session持久化(关闭或重启tomcat时不保存到硬盘)
+      persistent: false
+      #session超时时间为15分钟(开发阶段方便调试)
+      timeout: 15
+
+
+spring:
+  thymeleaf:
+    enabled: true
+    #开发阶段关闭模板缓存
+    cache: false
+    encoding: utf-8
+    #模板的类型html5(默认html)
+    mode: HTML
+    #模板前缀、模板引擎存放路径
+    prefix: classpath:/templates/
+    #模板后缀
+    suffix: .html
+    servlet:
+      content-type: text/html
+
+  application:
+    name: oauth2
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+
+      discovery:
+        server-addr: http://119.29.237.199:8848
+        namespace: test
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yaml
+        #指定分组
+        group: DEFAULT_GROUP
+        #指定命名空间
+        namespace: test
+
+#关闭nacos实时心跳检测日志输出
+logging:
+  level:
+    com.alibaba.nacos.client.naming: WARN
+    com.alibaba.nacos.client.config.impl: WARN
+
+    #springSecurity日志显示bug级别
+    org.springframework.security: DEBUG

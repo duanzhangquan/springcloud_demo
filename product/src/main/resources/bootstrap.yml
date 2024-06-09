@@ -1,9 +1,14 @@
 server:
   port: 8606
 
+  servlet:
+    #web应用的上下文路径,不配置时默认为/，作用类似于Controller类上的RequestMapping注解，
+    context-path: /product
+
 spring:
   application:
     name: product
+    #允许您使用相同名称的定制来覆盖现有的bean定义
   main:
     allow-bean-definition-overriding: true
   cloud:
@@ -21,3 +26,13 @@ spring:
         group: DEFAULT_GROUP
         #指定命名空间
         namespace: test
+
+
+logging:
+  level:
+    #关闭nacos实时心跳检测日志输出(只显示warn级别则不会显示实时心跳日志)
+    com.alibaba.nacos.client.naming: WARN
+    com.alibaba.nacos.client.config.impl: WARN
+
+    #springSecurity日志显示bug级别
+    org.springframework.security: DEBUG

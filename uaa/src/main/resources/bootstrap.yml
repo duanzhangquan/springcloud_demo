@@ -1,6 +1,11 @@
 server:
   port: 8607
 
+  servlet:
+    #web应用的上下文路径,不配置时默认为/，作用类似于Controller类上的RequestMapping注解，
+    #作用是给http接口加上统一的url前缀
+    context-path: /uaa
+
 spring:
   application:
     name: uaa
@@ -21,3 +26,12 @@ spring:
         group: DEFAULT_GROUP
         #指定命名空间
         namespace: test
+
+#关闭nacos实时心跳检测日志输出
+logging:
+  level:
+    com.alibaba.nacos.client.naming: WARN
+    com.alibaba.nacos.client.config.impl: WARN
+
+    #springSecurity日志显示bug级别
+    org.springframework.security: DEBUG

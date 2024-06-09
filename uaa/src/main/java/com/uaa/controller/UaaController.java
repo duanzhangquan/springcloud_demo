@@ -1,23 +1,31 @@
 package com.uaa.controller;
-
-import com.uaa.entity.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
+
+
 
 /**
  * @author duan
  */
+
 @RestController
-@RequestMapping("/uaa")
+//@RequestMapping("/uaa")
+@Slf4j
 public class UaaController {
 
 
-    /**
-     * 用户登录
-     */
-
-    @GetMapping("/login")
-    @ResponseBody
-    public User login(){
-        return new User();
+    @GetMapping("/test")
+    public void test(){
+        log.info("---test---");
     }
+
+    /**
+     * 注销登录,标记用户为离线状态
+     */
+    public void logout(){
+        DuplicateKeyException d;
+    }
+
 }
+

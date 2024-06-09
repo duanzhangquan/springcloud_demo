@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.base.mapper.RoleMapper">
+
+    <!-- 查询所有用户的角色列表-->
+    <select id ="getAllUserRole"  resultType="com.pojo.vo.UserRoleInfoVO">
+        SELECT
+            *
+        FROM(
+                SELECT
+                    u.id user_id,
+                    u.account,
+                    u.username,
+                    r.name_cn roleName,
+                    r.`code` roleCode,
+                    r.permission_id_list permissionIdList
+                FROM
+                    sys_user u
+                        LEFT JOIN sys_user_role ur ON ur.user_id = u.id
+                        LEFT JOIN sys_role r ON ur.role_id = r.id
+                where u.default_user = 0
+            ) t
+    </select>
+
+
+</mapper>
